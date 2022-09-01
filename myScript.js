@@ -1,10 +1,18 @@
 function addition (...numbers) {
-    let sum = 0;
+    let result = 0;
     for (i = 0; i < numbers.length; i++) {
-        sum += numbers[i];
+        result += numbers[i];
     }
-    return sum;
+    return result;
 };
 
-console.log(addition(14, 7, 19));
+function subtraction (...numbers) {
+    let result = 0;
+    for (i = 0; i < numbers.length; i++) {
+        result -= numbers[i];
+    }
+    return result;
+};
+
+console.log(subtraction(14, 7, 19));
 
