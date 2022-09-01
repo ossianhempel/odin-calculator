@@ -14,5 +14,13 @@ function subtraction (...numbers) {
     return result;
 };
 
-console.log(subtraction(14, 7, 19));
+function multiplication (...numbers) {
+    let result = 1;
+    for (i = 0; i < numbers.length; i++) {
+        result *= numbers[i];
+    }
+    return result;
+};
+
+console.log(multiplication(8, 8, 2));
 
