@@ -32,5 +32,27 @@ function division (...numbers) {
 };
 
 
-console.log(division(8, 2));
 
+function operate () {
+    let input = prompt('> ');
+
+    flatInput = input.split(' ').join('');
+
+    const operator = flatInput[1];
+    let n1 = parseInt(flatInput[0]);
+    let n2 = parseInt(flatInput[2]);
+
+
+    if (operator == '+') {
+        return addition(n1, n2);
+    } else if (operator == '-') {
+        return subtraction(n1, n2);
+    } else if (operator == '*') {
+        return multiplication(n1, n2);
+    } else {
+        return division(n1, n2);
+    }
+}
+
+
+console.log(operate());
