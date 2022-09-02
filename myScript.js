@@ -22,5 +22,15 @@ function multiplication (...numbers) {
     return result;
 };
 
-console.log(multiplication(8, 8, 2));
+// This one only works with 2 numbers
+function division (...numbers) {
+    let result = numbers[0];
+    for (i = 0; i <= numbers.length; i++) {
+        result = numbers[0] / numbers[1];
+    }
+    return result;
+};
+
+
+console.log(division(8, 2));
 
