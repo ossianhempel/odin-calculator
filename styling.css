@@ -1,4 +1,33 @@
+#clearBtn {
+    width: 50px;
+}
+
+button {
+    width: 30px;
+    height: 30px;
+}
+
+
 .buttonContainer {
     display: flex;
+    flex-direction: column;
+}
+
+.numbers {
+    display: flex;
+    justify-content: center;
+}
+
+.operators {
+    display: flex;
+    justify-content: center;
+}
+
+.display {
+    margin-top: 20px;
+    height: 100px;
+    width: 50 vh;
+    border: 4px solid black;
+    /* background: red; */
 }
 
