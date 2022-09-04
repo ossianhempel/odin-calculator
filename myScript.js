@@ -54,5 +54,47 @@ function operate () {
     }
 }
 
+const display = document.querySelector('.display');
+const clear = document.querySelector('#clearBtn');
 
-// console.log(operate());
+n1 = document.createElement('span');
+display.appendChild(n1);
+    
+n2 = document.createElement('span');
+display.appendChild(n2);
+
+operator = document.createElement('span');
+display.appendChild(operator);
+
+outcome = document.createElement('span');
+display.appendChild(outcome);
+
+
+const buttons = document.querySelectorAll('.numpad, .operator');
+
+buttons.forEach(button => button.addEventListener('click', () => {
+    console.log('this button works')
+    
+    
+    if (
+        button.textContent != '+' ||
+        button.textContent != '-' ||
+        button.textContent != '*' ||
+        button.textContent != '/' ||
+        button.textContent != '='
+    ) {
+        n1.append(button.textContent);
+    } else if (
+        button.textContent == '+' ||
+        button.textContent == '-' ||
+        button.textContent == '*' ||
+        button.textContent == '/'
+    ) {
+        n1.append(button.textContent);
+    }
+
+    
+    if (button.textContent == '+') {
+        console.log(addition(5, 6));
+    }
+}));
