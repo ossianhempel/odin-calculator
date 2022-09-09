@@ -56,7 +56,8 @@ function operate (operator, n1, n2) {
 }
 
 const display = document.querySelector('.display');
-const clear = document.querySelector('#clearBtn');
+const clearBtn = document.querySelector('#clearBtn');
+
 
 n1 = document.createElement('span');
 n1.classList.add("n1");
@@ -76,12 +77,7 @@ display.appendChild(outcome);
 
 
 const buttons = document.querySelectorAll('.numpad, .operator');
-
 buttons.forEach(button => button.addEventListener('click', () => {
-    // testing if buttons respond
-    console.log('this button works')
-    
-    
     if (
         button.textContent != '+' &&
         button.textContent != '-' &&
@@ -115,8 +111,12 @@ buttons.forEach(button => button.addEventListener('click', () => {
         let n2Arg = +n2.textContent;
         let operatorArg = operator.textContent;
         
-        // console.log(operate(operatorArg, n1Arg, n2Arg));
         outcome.append('=', operate(operatorArg, n1Arg, n2Arg));
     }
-
 }));
+
+// The clear button
+clearBtn.addEventListener('click', () => {
+    displayChildren = document.querySelectorAll('.display span');
+    displayChildren.forEach((child) => child.textContent='');
+});
