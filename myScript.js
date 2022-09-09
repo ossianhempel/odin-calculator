@@ -33,14 +33,15 @@ function division (...numbers) {
 
 
 
-function operate () {
-    let input = prompt('> ');
+function operate (operator, n1, n2) {
+    // --------THIS WAS BEFORE USING EVENTLISTENERS!-------
+    // let input = prompt('> ');
 
-    flatInput = input.split(' ').join('');
+    // flatInput = input.split(' ').join('');
 
-    const operator = flatInput[1];
-    let n1 = parseInt(flatInput[0]);
-    let n2 = parseInt(flatInput[2]);
+    // const operator = flatInput[1];
+    // let n1 = parseInt(flatInput[0]);
+    // let n2 = parseInt(flatInput[2]);
 
 
     if (operator == '+') {
@@ -58,43 +59,64 @@ const display = document.querySelector('.display');
 const clear = document.querySelector('#clearBtn');
 
 n1 = document.createElement('span');
+n1.classList.add("n1");
 display.appendChild(n1);
-    
-n2 = document.createElement('span');
-display.appendChild(n2);
 
 operator = document.createElement('span');
+operator.classList.add("operator");
 display.appendChild(operator);
 
+n2 = document.createElement('span');
+n2.classList.add("n2");
+display.appendChild(n2);
+
 outcome = document.createElement('span');
+outcome.classList.add("outcome");
 display.appendChild(outcome);
 
 
 const buttons = document.querySelectorAll('.numpad, .operator');
 
 buttons.forEach(button => button.addEventListener('click', () => {
+    // testing if buttons respond
     console.log('this button works')
     
     
     if (
-        button.textContent != '+' ||
-        button.textContent != '-' ||
-        button.textContent != '*' ||
-        button.textContent != '/' ||
-        button.textContent != '='
+        button.textContent != '+' &&
+        button.textContent != '-' &&
+        button.textContent != '*' &&
+        button.textContent != '/' &&
+        button.textContent != '=' &&
+        operator.textContent == false
     ) {
         n1.append(button.textContent);
+
     } else if (
         button.textContent == '+' ||
         button.textContent == '-' ||
         button.textContent == '*' ||
         button.textContent == '/'
     ) {
-        n1.append(button.textContent);
+        operator.append(button.textContent);
+    
+    } else if (operator.textContent && 
+        button.textContent != '+' &&
+        button.textContent != '-' &&
+        button.textContent != '*' &&
+        button.textContent != '/' &&
+        button.textContent != '='
+    ) {
+        n2.append(button.textContent);
+    
+    } else if (button.textContent == '=') {
+        
+        let n1Arg = +n1.textContent;
+        let n2Arg = +n2.textContent;
+        let operatorArg = operator.textContent;
+        
+        // console.log(operate(operatorArg, n1Arg, n2Arg));
+        outcome.append('=', operate(operatorArg, n1Arg, n2Arg));
     }
 
-    
-    if (button.textContent == '+') {
-        console.log(addition(5, 6));
-    }
 }));
