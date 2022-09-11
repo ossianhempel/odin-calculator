@@ -26,8 +26,13 @@ button {
 .display {
     margin-top: 20px;
     height: 100px;
-    width: 50 vh;
+    width: 50vh;
     border: 4px solid black;
     /* background: red; */
 }
 
+
+
+.outcome {
+    font-size: 25px;
+}

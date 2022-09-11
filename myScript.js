@@ -1,14 +1,15 @@
 function addition (...numbers) {
     let result = 0;
-    for (i = 0; i < numbers.length; i++) {
+    for (let i = 0; i < numbers.length; i++) {
         result += numbers[i];
     }
     return result;
 };
 
 function subtraction (...numbers) {
-    let result = 0;
-    for (i = 0; i < numbers.length; i++) {
+    let result = numbers[0];
+    console.log(numbers[0], numbers[1]);
+    for (let i = 1; i < numbers.length; i++) {
         result -= numbers[i];
     }
     return result;
@@ -16,7 +17,7 @@ function subtraction (...numbers) {
 
 function multiplication (...numbers) {
     let result = 1;
-    for (i = 0; i < numbers.length; i++) {
+    for (let i = 0; i < numbers.length; i++) {
         result *= numbers[i];
     }
     return result;
@@ -25,7 +26,7 @@ function multiplication (...numbers) {
 // This one only works with 2 numbers
 function division (...numbers) {
     let result = numbers[0];
-    for (i = 0; i <= numbers.length; i++) {
+    for (let i = 0; i <= numbers.length; i++) {
         result = numbers[0] / numbers[1];
     }
     return result;
@@ -45,7 +46,7 @@ function operate (operator, n1, n2) {
 
 
     if (operator == '+') {
-        return addition(n1, n2);
+        return addition(n1, n2 = 0);
     } else if (operator == '-') {
         return subtraction(n1, n2);
     } else if (operator == '*') {
@@ -57,66 +58,41 @@ function operate (operator, n1, n2) {
 
 const display = document.querySelector('.display');
 const clearBtn = document.querySelector('#clearBtn');
-
-
-n1 = document.createElement('span');
-n1.classList.add("n1");
-display.appendChild(n1);
-
-operator = document.createElement('span');
-operator.classList.add("operator");
-display.appendChild(operator);
-
-n2 = document.createElement('span');
-n2.classList.add("n2");
-display.appendChild(n2);
-
-outcome = document.createElement('span');
-outcome.classList.add("outcome");
-display.appendChild(outcome);
+const previousOperations = document.querySelector('.operations');
+const currentOperations = document.querySelector('.outcome');
 
 
 const buttons = document.querySelectorAll('.numpad, .operator');
 buttons.forEach(button => button.addEventListener('click', () => {
-    if (
-        button.textContent != '+' &&
-        button.textContent != '-' &&
-        button.textContent != '*' &&
-        button.textContent != '/' &&
-        button.textContent != '=' &&
-        operator.textContent == false
-    ) {
-        n1.append(button.textContent);
+    
+    
 
-    } else if (
-        button.textContent == '+' ||
-        button.textContent == '-' ||
-        button.textContent == '*' ||
-        button.textContent == '/'
-    ) {
-        operator.append(button.textContent);
+    if (
+            button.textContent != '+' &&
+            button.textContent != '-' &&
+            button.textContent != '*' &&
+            button.textContent != '/' &&
+            button.textContent != '='
+        ) {
+            currentOperations.textContent += button.textContent;
+        } else if (
+            button.textContent == '+' ||
+            button.textContent == '-' ||
+            button.textContent == '*' ||
+            button.textContent == '/'
+        ) {
+            previousOperations.textContent += currentOperations.textContent + button.textContent;
+            let operator = button.textContent;
+            let n1 = previousOperations.textContent;
+            let n2 = currentOperations.textContent;
+            currentOperations.textContent = operate(operator, n1, n2);
+
+        };
     
-    } else if (operator.textContent && 
-        button.textContent != '+' &&
-        button.textContent != '-' &&
-        button.textContent != '*' &&
-        button.textContent != '/' &&
-        button.textContent != '='
-    ) {
-        n2.append(button.textContent);
-    
-    } else if (button.textContent == '=') {
-        
-        let n1Arg = +n1.textContent;
-        let n2Arg = +n2.textContent;
-        let operatorArg = operator.textContent;
-        
-        outcome.append('=', operate(operatorArg, n1Arg, n2Arg));
-    }
 }));
 
 // The clear button
 clearBtn.addEventListener('click', () => {
-    displayChildren = document.querySelectorAll('.display span');
-    displayChildren.forEach((child) => child.textContent='');
+    currentOperations.textContent = '';
+    previousOperations.textContent = '';
 });
