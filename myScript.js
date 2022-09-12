@@ -11,6 +11,7 @@ function addition (x, y) {
     return result;
 }
 
+// IN PROGRESSS!!! 
 function subtraction (...numbers) {
     let result = numbers[0];
     console.log(numbers[0], numbers[1]);
@@ -37,21 +38,34 @@ function division (...numbers) {
     return result;
 };
 
-function operate (operator, n1, n2) {
-    if (operator == '+') {
-        return addition(n1, n2);
-    } else if (operator == '-') {
-        return subtraction(n1, n2);
-    } else if (operator == '*') {
-        return multiplication(n1, n2);
-    } else {
-        return division(n1, n2);
-    }
-}
-
 let operator = '';
 let previousValue = '';
 let currentValue = '';
+
+function operate () {
+    // if (operator == '+') {
+    //     return addition(n1, n2);
+    // } else if (operator == '-') {
+    //     return subtraction(n1, n2);
+    // } else if (operator == '*') {
+    //     return multiplication(n1, n2);
+    // } else {
+    //     return division(n1, n2);
+    // }
+    previousValue = +previousValue;
+    currentValue = +currentValue;
+
+    if (operator === '+') {
+        previousValue += currentValue;
+    } else if (operator === '-') {
+        previousValue -= currentValue;
+    } else if (operator === '*') {
+        previousValue *= currentValue;
+    } else {
+        previousValue /= currentValue;
+    }
+    currentValue = previousValue;
+}
 
 // ----Getting all our buttons ready----
 const display = document.querySelector('.display');
@@ -75,7 +89,6 @@ operators.forEach((op => op.addEventListener('click', function(e) {
     handleOperator(e.target.textContent);
     previousOperation.textContent = previousValue + " " + operator;
     currentOperation.textContent = currentValue;
-
 })));
 
 function handleNumber(num) {
@@ -91,7 +104,6 @@ function handleOperator(op) {
 
 };
 
-// The clear button
 clearBtn.addEventListener('click', () => {
     previousValue = '';
     currentValue = '';
@@ -100,6 +112,9 @@ clearBtn.addEventListener('click', () => {
     previousOperation.textContent = previousValue;
 });
 
+
 equalBtn.addEventListener('click', () => {
-    console.log(operate(operator, previousValue, currentValue));
+    operate();
+    previousOperation.textContent = '';
+    currentOperation.textContent = previousValue;
 });
