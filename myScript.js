@@ -1,57 +1,11 @@
-// function addition (...numbers) {
-//     let result = 0;
-//     for (let i = 0; i < numbers.length; i++) {
-//         result += numbers[i];
-//     }
-//     return result;
-// };
 
-function addition (x, y) {
-    let result = +x + +y;
-    return result;
-}
-
-// IN PROGRESSS!!! 
-function subtraction (...numbers) {
-    let result = numbers[0];
-    console.log(numbers[0], numbers[1]);
-    for (let i = 1; i < numbers.length; i++) {
-        result -= numbers[i];
-    }
-    return result;
-};
-
-function multiplication (...numbers) {
-    let result = 1;
-    for (let i = 0; i < numbers.length; i++) {
-        result *= numbers[i];
-    }
-    return result;
-};
-
-// This one only works with 2 numbers
-function division (...numbers) {
-    let result = numbers[0];
-    for (let i = 0; i <= numbers.length; i++) {
-        result = numbers[0] / numbers[1];
-    }
-    return result;
-};
 
 let operator = '';
 let previousValue = '';
 let currentValue = '';
 
 function operate () {
-    // if (operator == '+') {
-    //     return addition(n1, n2);
-    // } else if (operator == '-') {
-    //     return subtraction(n1, n2);
-    // } else if (operator == '*') {
-    //     return multiplication(n1, n2);
-    // } else {
-    //     return division(n1, n2);
-    // }
+ 
     previousValue = +previousValue;
     currentValue = +currentValue;
 
@@ -86,9 +40,20 @@ numbers.forEach(number => number.addEventListener('click', () => {
 }));
 
 operators.forEach((op => op.addEventListener('click', function(e) {
-    handleOperator(e.target.textContent);
-    previousOperation.textContent = previousValue + " " + operator;
-    currentOperation.textContent = currentValue;
+    if (operator == '') {
+        handleOperator(e.target.textContent);
+        previousOperation.textContent = previousValue + " " + operator;
+        currentOperation.textContent = currentValue;
+    } else if (operator != '') {
+        operate();
+        previousOperation.textContent = '';
+        currentOperation.textContent = previousValue;
+        operator = '';
+        handleOperator(e.target.textContent);
+        previousOperation.textContent = previousValue + " " + operator;
+        currentOperation.textContent = currentValue;
+    }  
+    
 })));
 
 function handleNumber(num) {
@@ -104,6 +69,17 @@ function handleOperator(op) {
 
 };
 
+equalBtn.addEventListener('click', () => {
+    if (previousValue != '' && currentValue != '') {
+        operate();
+        previousOperation.textContent = '';
+        currentOperation.textContent = roundNum(previousValue);
+        
+        operator = '';
+        previousValue = '';
+    }
+});
+
 clearBtn.addEventListener('click', () => {
     previousValue = '';
     currentValue = '';
@@ -112,9 +88,11 @@ clearBtn.addEventListener('click', () => {
     previousOperation.textContent = previousValue;
 });
 
-
-equalBtn.addEventListener('click', () => {
-    operate();
-    previousOperation.textContent = '';
-    currentOperation.textContent = previousValue;
-});
+function roundNum(num) {
+    if (num % 1 != 0) {
+        let roundedNum = Math.round(num * 1000) / 1000;
+        return roundedNum;
+    } else {
+        return num;
+    }
+};
