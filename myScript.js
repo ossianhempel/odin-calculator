@@ -42,16 +42,24 @@ numbers.forEach(number => number.addEventListener('click', () => {
 operators.forEach((op => op.addEventListener('click', function(e) {
     if (operator == '') {
         handleOperator(e.target.textContent);
-        previousOperation.textContent = previousValue + " " + operator;
-        currentOperation.textContent = currentValue;
+        previousOperation.textContent = roundNum(previousValue) + " " + operator;
+        currentOperation.textContent = roundNum(currentValue);
     } else if (operator != '') {
-        operate();
-        previousOperation.textContent = '';
-        currentOperation.textContent = previousValue;
-        operator = '';
-        handleOperator(e.target.textContent);
-        previousOperation.textContent = previousValue + " " + operator;
-        currentOperation.textContent = currentValue;
+        if (operator = '/' && currentValue == 0) {
+            currentOperation.textContent = "Don't even try! (Divide by zero)";
+            operator = '';
+            previousValue = '';
+            currentValue = '';
+            previousOperation.textContent = previousValue;
+        } else {
+            operate();
+            previousOperation.textContent = '';
+            currentOperation.textContent = roundNum(previousValue);
+            operator = '';
+            handleOperator(e.target.textContent);
+            previousOperation.textContent = roundNum(previousValue) + " " + operator;
+            currentOperation.textContent = roundNum(currentValue);
+        }
     }  
     
 })));
@@ -71,13 +79,24 @@ function handleOperator(op) {
 
 equalBtn.addEventListener('click', () => {
     if (previousValue != '' && currentValue != '') {
-        operate();
-        previousOperation.textContent = '';
-        currentOperation.textContent = roundNum(previousValue);
+        if (operator = '/' && currentValue == 0) {
+            currentOperation.textContent = "Don't even try! (Divide by zero)";
+            operator = '';
+            previousValue = '';
+            currentValue = '';
+            previousOperation.textContent = previousValue;
+
+
+        } else {
+            operate();
+            previousOperation.textContent = '';
+            currentOperation.textContent = roundNum(previousValue);
+            
+            operator = '';
+            previousValue = '';
         
-        operator = '';
-        previousValue = '';
-    }
+    } 
+    };
 });
 
 clearBtn.addEventListener('click', () => {
